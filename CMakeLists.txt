@@ -17,6 +17,7 @@ PROJECT(cuda-api-wrappers
 	LANGUAGES CUDA CXX)
 
 include(FindCUDA) 
+include(GNUInstallDirs)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "lib/")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "lib/")
@@ -52,10 +53,10 @@ endif()
 install(
 	TARGETS cuda-api-wrappers
 	EXPORT cuda-api-wrappers_export
-	RUNTIME DESTINATION bin
-	ARCHIVE DESTINATION lib
-	LIBRARY DESTINATION lib
-	INCLUDES DESTINATION include
+	RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+	ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+	LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+	INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDDIR}"
 )
 
 install(
@@ -66,7 +67,7 @@ install(
 
 install(
 	EXPORT cuda-api-wrappers_export
-	DESTINATION "share/cmake/cuda-api-wrappers"
+	DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/cuda-api-wrappers"
 	NAMESPACE "cuda-api-wrappers::"
 	# In this CMake config file no dependencies are considered. But since we
 	# do not use any `find_package` call here this approach is sufficient.
